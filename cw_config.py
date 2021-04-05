@@ -1,0 +1,22 @@
+# DATA CONFIG 数据集配置
+REVERSAL_TEAM_PROB = 0.3  # 反转队伍概率
+RANDOM_HERO_SEQUENCE = False  # 是否打乱英雄选择顺序
+RANDOM_HERO_NONE_SELECT_MAX_NUM_EACH_TEAM = 3  # 每个队伍最多有多少名玩家还没有进行选择
+DATA_CACHE_FILE_PATH = "data.cache"
+
+# MODEL CONFIG 模型配置
+HERO_NUM = 156  # LOL英雄数量（由于包含MASK所以需在真实数量上加1）
+EMB_SIZE = 64
+LINEAR_SIZE = 128
+GRU_SIZE = 64
+SUB_LINEAR_SIZE = 128
+FEATURES_SIZE = 128
+
+# TRAIN CONFIG 训练配置
+BATCH_SIZE = 16
+EPOCH = 100
+NUM_WORKERS = 0
+MODEL_PATH = "./model"
+
+# INFER CONFIG 预测配置
+F_MODEL_PATH = "./model/final"
