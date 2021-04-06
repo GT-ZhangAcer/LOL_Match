@@ -28,7 +28,9 @@ class CWNet(paddle.nn.Layer):
         self.features_own = paddle.nn.Linear(4 * SUB_LINEAR_SIZE, FEATURES_SIZE)
         self.features_con = paddle.nn.Linear(5 * SUB_LINEAR_SIZE, FEATURES_SIZE)
         # 合成正方与反方特征
-        self.sub = paddle.nn.Linear(FEATURES_SIZE * 2, FEATURES_SIZE)
+        self.sub_role = paddle.nn.Linear(FEATURES_SIZE * 2, FEATURES_SIZE)
+        self.sub_flag = paddle.nn.Linear(FEATURES_SIZE * 2, FEATURES_SIZE)
+        self.sub_money = paddle.nn.Linear(FEATURES_SIZE * 2, FEATURES_SIZE)
         # 输出层
         self.role = paddle.nn.Linear(FEATURES_SIZE, HERO_NUM)
         self.flag = paddle.nn.Linear(FEATURES_SIZE, 1)
@@ -55,11 +57,13 @@ class CWNet(paddle.nn.Layer):
         con = self.features_con(con)
         # 合成正方与反方特征
         features = paddle.tensor.concat([own, con], axis=1)
-        features = self.sub(features)
+        role_features = self.sub_role(features)
+        flag_features = self.sub_flag(features)
+        money_features = self.sub_money(features)
         # 输出层
-        role = self.role(features)
-        flag = self.flag(features)
-        money = self.money(features)
+        role = self.role(role_features)
+        flag = self.flag(flag_eatures)
+        money = self.money(money_features)
 
         if not self.is_infer:
             return role, flag, money
